@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Barnak Roy Nandy (Xenomorph27): computer vision, applied ML and full-stack tooling. Sign-language translation, wildlife detection, research and edtech tools.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Barnak Roy Nandy · Xenomorph27">
+<meta property="og:description" content="I build models that see and the systems that ship them.">
+<meta property="og:url" content="https://xenomorph27.github.io/">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Barnak Roy Nandy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* Layout: a phosphor terminal running live inference. Full-bleed detection feed behind the name; repos as model-card panels; logs and deps in terminal idiom. Single deliberate dark look. */
+:root {
+  --bg: #000000;
+  --surface: #040a05;
+  --raise: #08130a;
+  --ink: #e4ffe8;
+  --muted: #74a07c;
+  --line: #123018;
+  --line-hi: #1d4d27;
+  --green: #00ff41;      /* terminal phosphor */
+  --green-dim: #00b32e;
+  --red: #ff3b3b;        /* rejected / low-confidence */
+  --on-signal: #000000;
+  --glow: 0 0 12px rgb(0 255 65 / .45), 0 0 2px rgb(0 255 65 / .9);
+  --glow-red: 0 0 12px rgb(255 59 59 / .45), 0 0 2px rgb(255 59 59 / .9);
+  --display: "Chakra Petch", "Bahnschrift", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 16px; line-height: 1.6;
+  background-image: radial-gradient(rgb(0 255 65 / .09) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--green); color: var(--on-signal); }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+
+.wrap {
+  max-width: 1160px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.label { font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.g { color: var(--green); }
+.r { color: var(--red); }
+
+/* top bar */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: rgb(0 0 0 / .82); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+.top .wrap { padding-block: 14px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.handle { display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: var(--mono); font-size: 13px; }
+.handle img { width: 28px; height: 28px; image-rendering: pixelated; border: 1px solid var(--green); box-shadow: var(--glow); }
+.online { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; }
+.online i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: var(--glow); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .35; } }
+.top nav { display: flex; gap: 22px; font-family: var(--mono); font-size: 13px; }
+.top nav a { text-decoration: none; color: var(--muted); transition: color .15s ease; }
+.top nav a::before { content: "./"; color: var(--green-dim); }
+.top nav a:hover { color: var(--green); }
+
+/* hero: full-bleed live feed behind the name */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+#field { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    radial-gradient(52% 70% at 22% 52%, rgb(0 0 0 / .86), transparent 75%),
+    radial-gradient(120% 90% at 50% 50%, transparent 55%, rgb(0 0 0 / .85));
+}
+.hero::after { /* CRT scanlines */
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgb(0 255 65 / .035) 0 1px, transparent 1px 3px);
+}
+.hero-text { position: relative; z-index: 2; display: grid; gap: 26px; min-width: 0; padding-block: 72px 120px; }
+.prompt { font-family: var(--mono); font-size: 14px; color: var(--muted); min-height: 1.6em; }
+.prompt b { color: var(--green); font-weight: 500; }
+.prompt .out { color: var(--ink); }
+.cur { display: inline-block; width: 8px; height: 15px; background: var(--green); box-shadow: var(--glow); vertical-align: -2px; margin-left: 4px; animation: blink 1.1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.target {
+  position: relative; justify-self: start; max-width: 100%; margin-top: 22px;
+  padding: 18px 26px 16px; border: 1.5px solid var(--green);
+  background: rgb(0 0 0 / .6); backdrop-filter: blur(3px);
+  box-shadow: var(--glow), inset 0 0 30px rgb(0 255 65 / .06);
+}
+.target .tag {
+  position: absolute; left: -1.5px; bottom: 100%; padding: 4px 9px; white-space: nowrap;
+  background: var(--green); color: var(--on-signal); font: 700 11.5px/1.3 var(--mono);
+}
+.corner { position: absolute; width: 9px; height: 9px; background: var(--green); box-shadow: var(--glow); }
+.corner.tl { top: -5px; left: -5px; } .corner.tr { top: -5px; right: -5px; }
+.corner.bl { bottom: -5px; left: -5px; } .corner.br { bottom: -5px; right: -5px; }
+h1 {
+  margin: 0; font-family: var(--display); font-weight: 700;
+  font-size: clamp(42px, 8.4vw, 108px); line-height: .92; letter-spacing: -.01em; text-transform: uppercase; text-wrap: balance;
+}
+.outline { color: transparent; -webkit-text-stroke: 1.6px var(--green); text-shadow: 0 0 18px rgb(0 255 65 / .5); }
+.lede { max-width: 54ch; font-size: clamp(16.5px, 1.8vw, 19px); margin: 0; text-wrap: pretty; }
+.lede strong { color: var(--green); font-weight: 500; }
+.specs { display: grid; grid-template-columns: repeat(4, auto); justify-content: start; border: 1px solid var(--line-hi); background: rgb(4 10 5 / .75); backdrop-filter: blur(4px); }
+.specs div { display: grid; gap: 2px; padding: 10px 20px; border-right: 1px solid var(--line-hi); }
+.specs div:last-child { border-right: 0; }
+.specs b { font-family: var(--display); font-weight: 600; font-size: 24px; color: var(--green); font-variant-numeric: tabular-nums; text-shadow: 0 0 10px rgb(0 255 65 / .35); }
+@media (max-width: 520px) { .specs { grid-template-columns: repeat(2, 1fr); } .specs div:nth-child(2) { border-right: 0; } .specs div:nth-child(-n+2) { border-bottom: 1px solid var(--line-hi); } }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; padding: 13px 20px;
+  font: 700 13px/1 var(--mono); text-decoration: none; letter-spacing: .02em;
+  border: 1px solid var(--green); background: var(--green); color: var(--on-signal); box-shadow: var(--glow);
+  transition: background .15s ease, color .15s ease, transform .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn.ghost { background: rgb(0 0 0 / .6); color: var(--green); font-weight: 500; box-shadow: none; }
+.btn.ghost:hover { background: var(--green); color: var(--on-signal); box-shadow: var(--glow); }
+.hud {
+  position: absolute; z-index: 2; left: 0; right: 0; bottom: 0;
+  border-top: 1px solid var(--line); background: rgb(0 0 0 / .75); backdrop-filter: blur(6px);
+}
+.hud .wrap { display: flex; flex-wrap: wrap; gap: 6px 28px; padding-block: 10px; font-family: var(--mono); font-size: 12px; }
+.hud span { color: var(--muted); }
+.hud b { font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+.hud .file { margin-left: auto; }
+@media (max-width: 640px) { .hud .file { display: none; } }
+
+/* sections */
+section.block { padding-block: 72px; border-top: 1px solid var(--line); }
+.head { display: flex; justify-content: space-between; align-items: end; gap: 16px 32px; flex-wrap: wrap; margin-bottom: 30px; }
+.head h2 { margin: 6px 0 0; font-family: var(--display); font-weight: 700; font-size: clamp(30px, 3.8vw, 44px); line-height: 1.05; text-transform: uppercase; text-wrap: balance; }
+.head h2::after { content: "_"; color: var(--green); text-shadow: var(--glow); margin-left: 4px; animation: blink 1.1s steps(1) infinite; }
+.head .label b { color: var(--green); font-weight: 500; }
+
+/* repositories: grouped terminal rows */
+.repo-list { display: grid; min-width: 0; }
+.repo {
+  display: grid; gap: 10px; min-width: 0; padding: 16px; margin-inline: -16px;
+  border-bottom: 1px dashed var(--line); transition: background .15s ease, box-shadow .15s ease;
+}
+.repo:first-child { padding-top: 6px; }
+.repo:last-child { border-bottom: 0; }
+.repo:hover, .repo:focus-within { background: var(--raise); box-shadow: inset 2px 0 0 var(--green); }
+.repo-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.repo h4 { margin: 0; font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1.1; text-transform: uppercase; overflow-wrap: anywhere; }
+.repo .path { font: 400 12px/1.4 var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+.repo .path b { color: var(--green-dim); font-weight: 400; }
+.repo p { margin: 0; max-width: 72ch; color: var(--muted); font-size: 15px; }
+.repo .meta { display: flex; flex-wrap: wrap; gap: 4px 20px; font: 400 12.5px/1.5 var(--mono); color: var(--muted); }
+.repo .meta b { font-weight: 400; color: var(--ink); }
+.repo .meta b.hl { color: var(--green); }
+.repo .links { margin: 0 0 0 auto; padding: 0; }
+.badges.sm { gap: 6px; }
+.badges.sm li { padding: 6px 9px; font-size: 10.5px; gap: 7px; }
+.badges.sm li::before { width: 6px; height: 6px; }
+.status { font: 700 10.5px/1 var(--mono); padding: 5px 8px; border: 1px solid currentColor; white-space: nowrap; text-transform: uppercase; letter-spacing: .06em; }
+.status.live { color: var(--green); box-shadow: var(--glow); }
+.status.wip { color: var(--red); box-shadow: var(--glow-red); }
+.status.code { color: var(--muted); }
+.links { display: flex; gap: 8px; flex-wrap: wrap; }
+.links a { font: 500 12px/1 var(--mono); text-decoration: none; padding: 9px 12px; border: 1px solid var(--line-hi); transition: all .15s ease; }
+.links a:hover { border-color: var(--green); color: var(--green); }
+.links a.live { border-color: var(--green); color: var(--on-signal); background: var(--green); font-weight: 700; }
+.links a.live:hover { color: var(--on-signal); box-shadow: var(--glow); }
+
+/* log + deps: terminal panels */
+.term { border: 1px solid var(--line-hi); background: var(--surface); font-family: var(--mono); font-size: 13.5px; }
+.term-bar { display: flex; justify-content: space-between; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--line-hi); background: var(--raise); color: var(--muted); font-size: 12px; }
+.term-bar b { color: var(--green); font-weight: 500; }
+.term-bar .dots { display: flex; gap: 6px; align-items: center; }
+.term-bar .dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--line-hi); }
+.term-bar .dots i:first-child { background: var(--red); }
+.term-body { padding: 16px; overflow-x: auto; }
+.log { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.log li { display: grid; grid-template-columns: 100px 96px minmax(0, 1fr); gap: 16px; white-space: nowrap; }
+.log time { color: var(--muted); font-variant-numeric: tabular-nums; }
+.log .k { color: var(--green); }
+.log .m { color: var(--muted); overflow: hidden; text-overflow: ellipsis; }
+.log .end { color: var(--green); margin-top: 6px; }
+@media (max-width: 600px) { .log li { grid-template-columns: 92px minmax(0, 1fr); } .log .k { display: none; } .log .m { display: none; } }
+
+.stack-row { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 12px 24px; padding-block: 16px; border-bottom: 1px dashed var(--line-hi); }
+.stack-row:first-child { padding-top: 4px; }
+.stack-row:last-child { border-bottom: 0; padding-bottom: 4px; }
+@media (max-width: 700px) { .stack-row { grid-template-columns: 1fr; } }
+.stack-row h3 { margin: 0; padding-top: 7px; font: 500 13px/1.3 var(--mono); color: var(--green); }
+.stack-row h3::before { content: "> "; color: var(--green-dim); }
+.stack-row h3 small { display: block; margin-top: 2px; font-size: 11px; color: var(--muted); font-weight: 400; }
+.badges { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.badges li {
+  display: inline-flex; align-items: center; gap: 9px; padding: 8px 12px;
+  font: 700 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase;
+  background: var(--bg); color: var(--ink); border: 1px solid var(--line-hi);
+  transition: border-color .15s ease, color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+.badges li::before { content: ""; width: 8px; height: 8px; flex: none; background: var(--b); box-shadow: 0 0 6px var(--b); }
+.badges li:hover { border-color: var(--b); color: var(--b); box-shadow: 0 0 12px -2px var(--b); transform: translateY(-1px); }
+.badges li em { font-style: normal; font-weight: 400; color: var(--green); letter-spacing: 0; }
+.legend { margin-top: 14px; font: 400 12px/1.4 var(--mono); color: var(--muted); }
+.legend .g { text-shadow: var(--glow); }
+
+/* closing call to action */
+.outro { text-align: left; display: grid; gap: 22px; justify-items: start; }
+.outro h2 { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(34px, 5.4vw, 64px); line-height: 1; text-transform: uppercase; text-wrap: balance; }
+.outro p { margin: 0; max-width: 52ch; color: var(--muted); }
+.clone { display: flex; align-items: center; gap: 12px; max-width: 100%; padding: 12px 14px; border: 1px solid var(--line-hi); background: var(--surface); font: 400 13px/1.4 var(--mono); }
+.clone code { overflow-x: auto; white-space: nowrap; min-width: 0; }
+.clone button { flex: none; font: 700 11px/1 var(--mono); padding: 8px 10px; cursor: pointer; background: transparent; color: var(--green); border: 1px solid var(--green); text-transform: uppercase; letter-spacing: .06em; }
+.clone button:hover { background: var(--green); color: var(--on-signal); }
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { padding-block: 28px 40px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px; align-items: center; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+footer a { color: var(--green); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="handle" href="https://github.com/Xenomorph27" target="_blank" rel="noopener">
+      <img alt="" src="data:image/png;base64,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">
+      <span>Xenomorph27</span>
+      <span class="online"><i></i>online</span>
+    </a>
+    <nav aria-label="Sections">
+      <a href="#work">repos</a>
+      <a href="#log">log</a>
+      <a href="#deps">stack</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="wrap hero-text">
+    <div class="prompt"><b>~</b> $ <span id="typed">whoami</span><span class="cur" aria-hidden="true"></span></div>
+    <div class="target">
+      <span class="tag">person · barnak_roy_nandy · 0.99</span>
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <h1>Barnak<br><span class="outline">Roy</span> Nandy</h1>
+    </div>
+    <p class="lede">I build <strong>models that see</strong> and the systems that ship them: sign-language translation, wildlife detection on edge hardware, and tools that take the busywork off researchers and educators.</p>
+    <div class="specs">
+      <div><span class="label">repos</span><b>6</b></div>
+      <div><span class="label">species</span><b>52</b></div>
+      <div><span class="label">deployed</span><b>2</b></div>
+      <div><span class="label">since</span><b>2025</b></div>
+    </div>
+    <div class="cta">
+      <a class="btn" href="#work">&gt; ls ./repos</a>
+      <a class="btn ghost" href="https://github.com/Xenomorph27" target="_blank" rel="noopener">github.com/Xenomorph27 ↗</a>
+    </div>
+  </div>
+  <div class="hud" aria-hidden="true">
+    <div class="wrap">
+      <span>frame <b id="h-frame">000000</b></span>
+      <span>accepted <b class="g" id="h-ok">0</b></span>
+      <span>rejected <b class="r" id="h-rej">0</b></span>
+      <span>top-1 <b id="h-top">—</b></span>
+      <span class="file">infer.py · yolov8x → efficientnet-b4 · thr 0.85</span>
+    </div>
+  </div>
+</div>
+
+<section class="block" id="work">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="label"><b>01</b> · 6 public repositories</span>
+        <h2>Repositories</h2>
+      </div>
+    </div>
+    <div class="term">
+      <div class="term-bar"><span><b>$</b> ls ~/repos --long --group-by=domain</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <div class="term-body" id="grid"></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="log">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="label"><b>02</b> · repository creation dates, 2026</span>
+        <h2>Changelog</h2>
+      </div>
+    </div>
+    <div class="term">
+      <div class="term-bar"><span><b>$</b> gh repo list Xenomorph27 --json name,createdAt | sort</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <div class="term-body"><ol class="log" id="timeline"></ol></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="deps">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="label"><b>03</b> · tools used across my repos</span>
+        <h2>Stack</h2>
+      </div>
+    </div>
+    <div class="term">
+      <div class="term-bar"><span><b>$</b> ls ~/stack --all --group-by=category</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <div class="term-body" id="stackgrid"></div>
+    </div>
+    <p class="legend"><span class="g">×N</span> = number of my public repositories that use it</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Barnak Roy Nandy · <a href="https://github.com/Xenomorph27" target="_blank" rel="noopener">@Xenomorph27</a></span>
+    <span>exit 0 · data from the public GitHub API, 28 Oct 2026</span>
+  </div>
+</footer>
+
+<script>
+const BRAND = {
+  Python: "#4b8bbe", JavaScript: "#f7df1e", TypeScript: "#4a90e2", HTML5: "#e34f26", CSS3: "#2f8fd6", React: "#61dafb", "Next.js": "#e8e8e8",
+  "Tailwind CSS": "#38bdf8", Vite: "#a46bff", FastAPI: "#05c3a8", PyTorch: "#ee4c2c", "Gemini API": "#8e75ff", OpenCV: "#8c75ff", YOLOv8: "#1e90ff",
+  EfficientNet: "#4285f4", ResNet: "#ff6f61", MediaPipe: "#1ec8d8", Transformers: "#ffd21e", PostgreSQL: "#6b8cff", SQLAlchemy: "#ff5a3c",
+  Alembic: "#c0c0c0", "Drizzle ORM": "#c5f74f", Docker: "#2496ed", Vercel: "#e8e8e8", "Raspberry Pi": "#ff4f7a",
+};
+
+const projects = [
+  { name: "HyperTranslator", repo: "HyperTranslator", cat: "vision", status: ["wip", "in dev"],
+    desc: "Real-time Indian Sign Language to English. MediaPipe Holistic tracks hands, face and pose; a Transformer encoder reads the sequence; Gemini turns glosses into fluent sentences.",
+    kv: [["task", "ISL → English, live"], ["model", "Transformer encoder + Gemini"], ["stack", "PyTorch · FastAPI · Next.js", true]],
+    tech: ["Python", "TypeScript", "PyTorch", "MediaPipe", "Transformers", "Gemini API", "FastAPI", "Next.js", "Docker"], created: "2026-06-22" },
+  { name: "Wildlife Pro v2", repo: "wildlife-classifier-prov2", cat: "vision", status: ["code", "model"],
+    desc: "Two-stage wildlife pipeline: YOLOv8x finds the animals, EfficientNet-B4 names them.",
+    kv: [["task", "detect + classify"], ["model", "YOLOv8x → EfficientNet-B4"], ["result", "≈91.5% acc · 52 species", true]],
+    tech: ["Python", "PyTorch", "YOLOv8", "EfficientNet"], created: "2026-04-04" },
+  { name: "Edge Wildlife", repo: "edge-wildlife-classifier", cat: "vision", status: ["code", "edge"],
+    desc: "Real-time deer, elk and moose classifier with confidence-aware predictions, sized for a Raspberry Pi.",
+    kv: [["task", "classify on-device"], ["model", "ResNet18, fine-tuned"], ["target", "Raspberry Pi · OpenCV", true]],
+    tech: ["Python", "PyTorch", "ResNet", "OpenCV", "Raspberry Pi"], created: "2026-04-04" },
+  { name: "Findress", repo: "Findress", cat: "tools", status: ["live", "deployed"],
+    desc: "Every AI/ML conference, workshop and journal in one view: live deadlines, rankings, CFPs, and an assistant that answers from the CFP text itself.",
+    kv: [["for", "ML researchers"], ["stack", "Next.js · Drizzle · Postgres"], ["host", "Vercel", true]],
+    tech: ["TypeScript", "Next.js", "React", "Tailwind CSS", "Drizzle ORM", "PostgreSQL", "Vercel"], created: "2026-10-08", live: "https://findress.vercel.app" },
+  { name: "OBE Automate", repo: "obe-automate", cat: "tools", status: ["live", "deployed"],
+    desc: "Automates Outcome-Based Education paperwork for NBA/NAAC accreditation: syllabus to CO-PO mapping, lesson plans, attainment and reports.",
+    kv: [["for", "college faculty"], ["stack", "FastAPI · Gemini"], ["host", "Vercel", true]],
+    tech: ["Python", "JavaScript", "FastAPI", "Gemini API", "Docker", "Vercel"], created: "2026-04-25", live: "https://obe-automate.vercel.app" },
+  { name: "Client Desk", repo: "Client-Relationship-Management-System", cat: "apps", status: ["code", "full-stack"],
+    desc: "A CRM for a woodcraft business: orders, logistics, inventory and customer outreach in one dashboard.",
+    kv: [["for", "small manufacturer"], ["stack", "React 19 · FastAPI · Postgres"], ["db", "SQLAlchemy + Alembic", true]],
+    tech: ["JavaScript", "Python", "React", "Vite", "Tailwind CSS", "FastAPI", "SQLAlchemy", "Alembic", "PostgreSQL"], created: "2026-08-22" },
+];
+const gh = r => `https://github.com/Xenomorph27/${r}`;
+const grid = document.getElementById("grid");
+
+const domains = { vision: "computer vision", tools: "research & edtech", apps: "business software" };
+grid.innerHTML = Object.entries(domains).map(([key, label]) => {
+  const list = projects.filter(p => p.cat === key);
+  return `
+  <div class="stack-row">
+    <h3>${label}<small>${list.length} ${list.length === 1 ? "repo" : "repos"}</small></h3>
+    <div class="repo-list">${list.map(p => `
+      <article class="repo">
+        <div class="repo-top">
+          <h4>${p.name}</h4>
+          <span class="status ${p.status[0]}">${p.status[1]}</span>
+          <div class="links">
+            ${p.live ? `<a class="live" href="${p.live}" target="_blank" rel="noopener">open live ↗</a>` : ""}
+            <a href="${gh(p.repo)}" target="_blank" rel="noopener">source ↗</a>
+          </div>
+        </div>
+        <div class="path"><b>~/repos/</b>${p.repo.toLowerCase()} · created ${p.created}</div>
+        <p>${p.desc}</p>
+        <div class="meta">${p.kv.map(([k, v, hl]) => `<span>${k}: <b${hl ? ' class="hl"' : ""}>${v}</b></span>`).join("")}</div>
+        <ul class="badges sm">${p.tech.map(t => `<li style="--b:${BRAND[t]}">${t}</li>`).join("")}</ul>
+      </article>`).join("")}
+    </div>
+  </div>`;
+}).join("");
+
+// changelog, oldest first
+const kind = { vision: "vision", tools: "tooling", apps: "app" };
+document.getElementById("timeline").innerHTML = [...projects]
+  .sort((a, b) => a.created.localeCompare(b.created))
+  .map(p => `<li><time datetime="${p.created}">${p.created}</time><span class="k">[${kind[p.cat]}]</span><span><span>${p.repo}</span> <span class="m">· ${p.kv[0][1]}</span></span></li>`).join("")
+  + `<li class="end"><span>6 rows</span><span></span><span>✓ done</span></li>`;
+
+// stack: only tools that appear in the public repos (GitHub languages + topics); [name, repos using it]
+const stack = {
+  "languages": [["Python", 5], ["JavaScript", 4], ["TypeScript", 2]],
+  "frontend": [["HTML5", 3], ["CSS3", 3], ["React", 2], ["Next.js", 2], ["Tailwind CSS", 2], ["Vite", 1]],
+  "backend": [["FastAPI", 3]],
+  "ai & ml": [["PyTorch", 3], ["Gemini API", 2], ["OpenCV", 1], ["YOLOv8", 1], ["EfficientNet", 1], ["ResNet", 1], ["MediaPipe", 1], ["Transformers", 1]],
+  "databases & orm": [["PostgreSQL", 2], ["SQLAlchemy", 1], ["Alembic", 1], ["Drizzle ORM", 1]],
+  "devops & hardware": [["Docker", 2], ["Vercel", 2], ["Raspberry Pi", 1]],
+};
+document.getElementById("stackgrid").innerHTML = Object.entries(stack).map(([cat, items]) => `
+  <div class="stack-row">
+    <h3>${cat}<small>${items.length} ${items.length === 1 ? "tool" : "tools"}</small></h3>
+    <ul class="badges">${items.map(([n, k]) =>
+      `<li style="--b:${BRAND[n]}" title="Used in ${k} public ${k === 1 ? "repository" : "repositories"}">${n}<em>×${k}</em></li>`).join("")}</ul>
+  </div>`).join("");
+
+// hero feed: green = accepted (conf >= 0.85), red = rejected
+(() => {
+  const cv = document.getElementById("field");
+  const ctx = cv.getContext("2d");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const classes = ["deer", "elk", "moose", "red_fox", "lynx", "owl", "boar", "hand_L", "hand_R", "face", "pose", "unknown"];
+  const hF = document.getElementById("h-frame"), hOk = document.getElementById("h-ok"), hRej = document.getElementById("h-rej"), hT = document.getElementById("h-top");
+  const G = "#00ff41", R = "#ff3b3b";
+  let W, H, boxes = [], frame = 0, scan = 0;
+  function size() {
+    const r = cv.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  const target = () => Math.max(5, Math.min(10, Math.round(W / 170)));
+  function spawn() {
+    const s = Math.min(W, 900);
+    const w = s * (.1 + Math.random() * .16), h = H * (.14 + Math.random() * .22);
+    const rejected = Math.random() < .5;
+    return { x: Math.random() * (W - w), y: 18 + Math.random() * (H - h - 60), w, h,
+      vx: (Math.random() - .5) * .4, vy: (Math.random() - .5) * .25,
+      cls: classes[Math.floor(Math.random() * classes.length)],
+      conf: rejected ? .38 + Math.random() * .45 : .86 + Math.random() * .13,
+      life: 0, ttl: 260 + Math.random() * 320 };
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    scan = (scan + (reduce ? 0 : 1.1)) % (H + 120);
+    const sy = scan - 60, g = ctx.createLinearGradient(0, sy - 70, 0, sy + 2);
+    g.addColorStop(0, "rgba(0,255,65,0)"); g.addColorStop(1, "rgba(0,255,65,.14)");
+    ctx.globalAlpha = 1; ctx.fillStyle = g; ctx.fillRect(0, sy - 70, W, 72);
+    ctx.shadowColor = G; ctx.shadowBlur = 10; ctx.globalAlpha = .7; ctx.fillStyle = G; ctx.fillRect(0, sy, W, 1);
+    ctx.font = "700 11px " + getComputedStyle(document.documentElement).getPropertyValue("--mono");
+    while (boxes.length < target()) boxes.push(spawn());
+    let best = null, ok = 0, rej = 0;
+    for (const b of boxes) {
+      b.life++;
+      const fade = Math.max(0, Math.min(1, b.life / 30, (b.ttl - b.life) / 30));
+      const acc = b.conf >= .85, c = acc ? G : R;
+      acc ? ok++ : rej++;
+      ctx.globalAlpha = fade * (acc ? .85 : .75);
+      ctx.shadowColor = c; ctx.shadowBlur = 8;
+      ctx.strokeStyle = c; ctx.lineWidth = 1.5;
+      if (!acc) ctx.setLineDash([6, 4]);
+      ctx.strokeRect(b.x, b.y, b.w, b.h);
+      ctx.setLineDash([]);
+      const k = 10; ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(b.x, b.y + k); ctx.lineTo(b.x, b.y); ctx.lineTo(b.x + k, b.y);
+      ctx.moveTo(b.x + b.w - k, b.y + b.h); ctx.lineTo(b.x + b.w, b.y + b.h); ctx.lineTo(b.x + b.w, b.y + b.h - k);
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+      const txt = `${acc ? "" : "✕ "}${b.cls} ${b.conf.toFixed(2)}`, tw = ctx.measureText(txt).width + 10;
+      ctx.fillStyle = c; ctx.fillRect(b.x - .75, b.y - 17, tw, 17);
+      ctx.fillStyle = "#000"; ctx.fillText(txt, b.x + 4.5, b.y - 5);
+      if (acc && (!best || b.conf > best.conf)) best = b;
+      if (!reduce) {
+        b.x = Math.max(0, Math.min(W - b.w, b.x + b.vx)); b.y = Math.max(18, Math.min(H - b.h - 44, b.y + b.vy));
+        if (b.x <= 0 || b.x >= W - b.w) b.vx *= -1; if (b.y <= 18 || b.y >= H - b.h - 44) b.vy *= -1;
+      }
+    }
+    ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+    boxes = boxes.filter(b => b.life < b.ttl);
+    frame++;
+    if (frame % 6 === 0 || reduce) {
+      hF.textContent = String(frame).padStart(6, "0");
+      hOk.textContent = ok; hRej.textContent = rej;
+      hT.textContent = best ? `${best.cls} ${best.conf.toFixed(2)}` : "—";
+    }
+    if (!reduce) requestAnimationFrame(draw);
+  }
+  const seed = () => { for (let i = 0; i < target(); i++) { const b = spawn(); b.life = 40; boxes.push(b); } };
+  size(); seed(); scan = H * .55;
+  draw();
+  addEventListener("resize", () => { size(); boxes = []; seed(); if (reduce) draw(); });
+})();
+
+// terminal prompt: cycle a few commands and their answers
+(() => {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const el = document.getElementById("typed");
+  const lines = ["whoami", "cat focus.txt  # computer vision · applied ml", "python infer.py --model yolov8x --thr 0.85", "whoami"];
+  let i = 1;
+  const type =(s, j = 0) => {
+    el.textContent = s.slice(0, j);
+    if (j < s.length) return setTimeout(() => type(s, j + 1), 45 + Math.random() * 40);
+    if (++i < lines.length) setTimeout(() => erase(s, s.length), 1800);
+  };
+  const erase = (s, j) => {
+    el.textContent = s.slice(0, j);
+    if (j > 0) return setTimeout(() => erase(s, j - 1), 18);
+    type(lines[i]);
+  };
+  setTimeout(() => erase(lines[0], lines[0].length), 1400);
+})();
+</script>
+</body>
+</html>
